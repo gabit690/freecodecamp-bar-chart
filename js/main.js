@@ -1,4 +1,20 @@
+import d3functions from './d3functions.js';
+
 document.addEventListener('DOMContentLoaded', function(){
+
+    const svg = d3functions.renderElement("main", "svg");
+
+    d3functions.setAttributes(svg, {
+        width: 576,
+        height: 376
+    });
+
+    d3functions.setStyles(svg, {
+        display: "block",
+        margin: "auto",
+        outline: "grey solid 10px"
+    });
+
     // Add SVG
         // Set Graph´s title
         // Set init Graph´s style 
