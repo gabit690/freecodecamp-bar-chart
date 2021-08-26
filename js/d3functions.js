@@ -1,30 +1,28 @@
 export default {
-    existsElement: (element = "") => {
-        return d3.select(element)["_groups"][0][0] != null;
+    existsElement: (elementName = "") => {
+        return d3.select(elementName)["_groups"][0][0] != null;
     },
-    renderElement: (parent = "body", element = "") => {     
-        return d3.select(parent).append(element);
+    renderElement: (parentName = "body", elementName = "") => {     
+        return d3.select(parentName).append(elementName);
     },
-    setAttributes: (element = {}, attributes = {}) => {
-        const elementProperties = Object.keys(element).length;
+    setAttributes: (d3Element = {}, attributes = {}) => {
+        const elementProperties = Object.keys(d3Element).length;
         const attributesProperties = Object.keys(attributes).length;
         if (elementProperties > 0 && attributesProperties > 0) {
-            const keys = Object.keys(attributes);
+            const keys = (Object.keys(attributes)).map(key => key.replace(/_/g, "-"));
             keys.forEach((key, index) => {
-                element.style(keys[index], attributes[key]);
+                d3Element.attr(keys[index], attributes[key]);
             });
-            console.log("Attributes applied!");
         }
     },
-    setStyles: (element = {}, styles = {}) => {
-        const elementProperties = Object.keys(element).length;
+    setStyles: (d3Element = {}, styles = {}) => {
+        const elementProperties = Object.keys(d3Element).length;
         const stylesProperties = Object.keys(styles).length;
         if (elementProperties > 0 && stylesProperties > 0) {
-            const keys = Object.keys(styles);
+            const keys = (Object.keys(styles)).map(key => key.replace(/_/g, "-"));;
             keys.forEach((key, index) => {
-                element.style(keys[index], styles[key]);
+                d3Element.style(keys[index], styles[key]);
             });
-            console.log("Styles applied!");
         }
     }
 };

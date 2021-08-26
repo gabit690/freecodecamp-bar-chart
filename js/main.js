@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const svg = d3functions.renderElement("main", "svg");
 
     d3functions.setAttributes(svg, {
+        id: "graph",
         width: 576,
         height: 376
     });
@@ -14,6 +15,19 @@ document.addEventListener('DOMContentLoaded', function(){
         margin: "auto",
         outline: "grey solid 10px"
     });
+
+    const text = d3functions.renderElement("svg", "text");
+
+    d3functions.setAttributes(text, {
+        id: "title",
+        fill: "#000000", 
+        font_size: "35", 
+        font_family: "Verdana",
+        x: 150,
+        y: 50
+    });
+
+    text.text("GRAFICO");
 
     // Add SVG
         // Set Graph´s title
