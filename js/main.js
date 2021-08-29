@@ -29,8 +29,22 @@ document.addEventListener('DOMContentLoaded', function(){
 
     text.text("GRAFICO");
 
+    // Scale linear.
+
+    const xAxisDomain = d3functions.getCartesianDomain("x", []);
+    const xAxisRange = [0, 15];
+    const xAxis = d3functions.cartesianAxis("x", xAxisDomain, xAxisRange);
+    d3functions.applyCartesianAxis(svg, xAxis, 30);
+
+    /*
+
+    Scale linear function get Graph value
+
+    (((GraphData - RangeMin) * (DomainMax - DomainMin)) / (RangeMax - RangeMin)) + DomainMin
+
+    */
+
     // Add SVG
-        // Set Graph´s title
         // Set init Graph´s style 
         // Get Data
         // Set Axis
@@ -42,8 +56,6 @@ document.addEventListener('DOMContentLoaded', function(){
 // Visualize Data with a Bar Chart
 
 // Objective: Build a CodePen.io app that is functionally similar to this: https://codepen.io/freeCodeCamp/full/GrZVaM.
-
-// User Story #1: My chart should have a title with a corresponding id="title".
 
 // User Story #2: My chart should have a g element x-axis with a corresponding id="x-axis".
 

@@ -24,5 +24,37 @@ export default {
                 d3Element.style(keys[index], styles[key]);
             });
         }
+    },
+    cartesianAxis: (axisType = "x", domain = [0, 0], range = [0, 0]) => {
+        if (/^[xy]$/i.test(axisType)) {
+            const axisScale = d3.scaleLinear()
+                                .domain(domain)
+                                .range(range);
+            return (axisType === "x") ? 
+                        d3.axisBottom(axisScale)
+                        :
+                        d3.axisLeft(axisScale);
+        }
+    },
+    applyCartesianAxis: (d3Element = {}, cartesianAxis = null, displacement  = "0") => {
+        if (cartesianAxis != null) {
+            d3Element.append("g")
+                .attr("transform", "translate(0, " + displacement + ")")
+                .call(cartesianAxis);
+        }
+    },
+    getCartesianDomain: (axisType = "x", dataset = []) => {
+        const domainResult = [0, 0];
+        if (/^[xy]$/i.test(axisType)) {
+            switch (axisType) {
+                case "x":
+                    domainResult[1] = d3.max(dataset, (d) => d[0]);
+                    break;
+                case "y":
+                    domainResult[1] = d3.max(dataset, (d) => d[1]);
+                    break;
+            }
+        }
+        return domainResult;
     }
 };
