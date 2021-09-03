@@ -2,7 +2,8 @@ import d3functions from './d3functions.js';
 
 document.addEventListener('DOMContentLoaded', function(){
 
-    const svg = d3functions.renderElement("main", "svg");
+    // SVG Container
+    const svg = d3functions.createElement("main", "svg");
 
     d3functions.setAttributes(svg, {
         id: "graph",
@@ -16,28 +17,52 @@ document.addEventListener('DOMContentLoaded', function(){
         outline: "grey solid 10px"
     });
 
-    const text = d3functions.renderElement("svg", "text");
+    // Graph' Title
 
+    const text = d3functions.createElement("svg", "text");
+    let padding = svg.attr("width") / 10;
+    
     d3functions.setAttributes(text, {
         id: "title",
         fill: "#000000", 
-        font_size: "35", 
+        x: (svg.attr("width") / 2) - 100,
+        y: padding,
+    });
+    
+    d3functions.setStyles(text, {
+        font_size: "40px",
         font_family: "Verdana",
-        x: 150,
-        y: 50
+        text_decoration: "underline"
     });
 
-    text.text("GRAFICO");
+    d3functions.setTextContent(text, "MAIN TITLE");
+    
+    // Get Data
 
-    // Scale linear.
-
-    const xAxisDomain = d3functions.getCartesianDomain("x", []);
-    const xAxisRange = [0, 15];
-    const xAxis = d3functions.cartesianAxis("x", xAxisDomain, xAxisRange);
-    d3functions.applyCartesianAxis(svg, xAxis, 30);
+    const req = new XMLHttpRequest();
+    const url = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json";
+    req.open("GET", url, true);
+    req.onload = () => {
+        const data = JSON.parse(req.responseText);
+        console.log(data);
+        // Cartesian Axis
+    };
+    const datos = [
+        [2, 5], 
+        [1, 2], 
+        [4, 1], 
+        [7, 9], 
+        [20, 2]
+    ];
+    const pad = svg.attr("width") / 10;
+    const xAxis = d3functions.createCartesianAxis("x", [0, 20], [pad, svg.attr("width") - pad]);
+    d3functions.applyCartesianAxis(svg, "x", xAxis);
+    const yAxis = d3functions.createCartesianAxis("y", [0, 10], [svg.attr("height") - pad, pad]);
+    d3functions.applyCartesianAxis(svg, "y", yAxis);
+    // req.send();
 
     /*
-
+    
     Scale linear function get Graph value
 
     (((GraphData - RangeMin) * (DomainMax - DomainMin)) / (RangeMax - RangeMin)) + DomainMin
@@ -45,11 +70,8 @@ document.addEventListener('DOMContentLoaded', function(){
     */
 
     // Add SVG
-        // Set init Graph´s style 
         // Get Data
-        // Set Axis
         // Set Scale
-        // Put Data
         // Set Final Graph´s Style
 });
 
