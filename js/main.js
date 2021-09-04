@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     d3functions.setAttributes(svg, {
         id: "graph",
-        width: 576,
-        height: 376
+        width: 940,
+        height: 600
     });
 
     d3functions.setStyles(svg, {
@@ -25,17 +25,18 @@ document.addEventListener('DOMContentLoaded', function(){
     d3functions.setAttributes(text, {
         id: "title",
         fill: "#000000", 
-        x: (svg.attr("width") / 2) - 100,
+        x: 0,// (svg.attr("width") / 2) - 100,
         y: padding,
     });
     
     d3functions.setStyles(text, {
         font_size: "40px",
         font_family: "Verdana",
-        text_decoration: "underline"
+        text_decoration: "underline",
+        transform: "translate(30%, 0%)"
     });
 
-    d3functions.setTextContent(text, "MAIN TITLE");
+    d3functions.setTextContent(text, "United States GDP");
     
     // Get Data
 
@@ -43,23 +44,20 @@ document.addEventListener('DOMContentLoaded', function(){
     const url = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json";
     req.open("GET", url, true);
     req.onload = () => {
-        const data = JSON.parse(req.responseText);
-        console.log(data);
+        const responseData = JSON.parse(req.responseText);
+        const dataset = (responseData.data).map(element => {
+            return [Number(element[0].substring(0, 4)), element[1]];
+        });
+        const xAxisDomain = d3functions.getCartesianDomain("x", dataset);
+        const yAxisDomain = d3functions.getCartesianDomain("y", dataset);
         // Cartesian Axis
+        const pad = svg.attr("width") / 10;
+        const xAxis = d3functions.createCartesianAxis("x", xAxisDomain, [pad, svg.attr("width") - pad]);
+        d3functions.applyCartesianAxis(svg, "x", xAxis);
+        const yAxis = d3functions.createCartesianAxis("y", yAxisDomain, [svg.attr("height") - pad, pad]);
+        d3functions.applyCartesianAxis(svg, "y", yAxis);
     };
-    const datos = [
-        [2, 5], 
-        [1, 2], 
-        [4, 1], 
-        [7, 9], 
-        [20, 2]
-    ];
-    const pad = svg.attr("width") / 10;
-    const xAxis = d3functions.createCartesianAxis("x", [0, 20], [pad, svg.attr("width") - pad]);
-    d3functions.applyCartesianAxis(svg, "x", xAxis);
-    const yAxis = d3functions.createCartesianAxis("y", [0, 10], [svg.attr("height") - pad, pad]);
-    d3functions.applyCartesianAxis(svg, "y", yAxis);
-    // req.send();
+    req.send();
 
     /*
     
@@ -69,21 +67,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
     */
 
-    // Add SVG
-        // Get Data
-        // Set Scale
-        // Set Final Graph´s Style
 });
 
 // Visualize Data with a Bar Chart
 
 // Objective: Build a CodePen.io app that is functionally similar to this: https://codepen.io/freeCodeCamp/full/GrZVaM.
-
-// User Story #2: My chart should have a g element x-axis with a corresponding id="x-axis".
-
-// User Story #3: My chart should have a g element y-axis with a corresponding id="y-axis".
-
-// User Story #4: Both axes should contain multiple tick labels, each with a corresponding class="tick".
 
 // User Story #5: My chart should have a rect element for each data point with a corresponding class="bar" displaying the data.
 

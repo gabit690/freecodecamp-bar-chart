@@ -29,7 +29,6 @@ export default {
             const keys = (Object.keys(styles)).map(key => key.replace(/_/g, "-"));
             keys.forEach((key, index) => {
                 d3Element.style(keys[index], styles[key.replace(/-/g, "_")]);
-                
             });
         }
     },
@@ -40,7 +39,7 @@ export default {
                                 .domain(domain)
                                 .range(range);
             return (axisType === "x") ? 
-                        d3.axisBottom(axisScale)
+                        d3.axisBottom(axisScale).tickFormat(d3.format(""))
                         :
                         d3.axisLeft(axisScale);
         }
@@ -64,6 +63,7 @@ export default {
         if (/^[xy]$/i.test(axisType)) {
             switch (axisType) {
                 case "x":
+                    domainResult[0] = d3.min(dataset, (d) => d[0]);
                     domainResult[1] = d3.max(dataset, (d) => d[0]);
                     break;
                 case "y":
