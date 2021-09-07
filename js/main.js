@@ -18,15 +18,13 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // Graph' Title
-
     const text = d3functions.createElement("svg", "text");
-    let padding = svg.attr("width") / 10;
     
     d3functions.setAttributes(text, {
         id: "title",
         fill: "#000000", 
-        x: 0,// (svg.attr("width") / 2) - 100,
-        y: padding,
+        x: 0,
+        y: (svg.attr("width") / 10) - 25
     });
     
     d3functions.setStyles(text, {
@@ -39,23 +37,12 @@ document.addEventListener('DOMContentLoaded', function(){
     d3functions.setTextContent(text, "United States GDP");
     
     // Get Data
-
     const req = new XMLHttpRequest();
     const url = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json";
     req.open("GET", url, true);
     req.onload = () => {
         const responseData = JSON.parse(req.responseText);
-        const dataset = (responseData.data).map(element => {
-            return [Number(element[0].substring(0, 4)), element[1]];
-        });
-        const xAxisDomain = d3functions.getCartesianDomain("x", dataset);
-        const yAxisDomain = d3functions.getCartesianDomain("y", dataset);
-        // Cartesian Axis
-        const pad = svg.attr("width") / 10;
-        const xAxis = d3functions.createCartesianAxis("x", xAxisDomain, [pad, svg.attr("width") - pad]);
-        d3functions.applyCartesianAxis(svg, "x", xAxis);
-        const yAxis = d3functions.createCartesianAxis("y", yAxisDomain, [svg.attr("height") - pad, pad]);
-        d3functions.applyCartesianAxis(svg, "y", yAxis);
+        d3functions.renderBarChart(svg, responseData.data);
     };
     req.send();
 

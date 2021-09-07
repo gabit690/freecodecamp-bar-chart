@@ -19,6 +19,14 @@ main {
     outline: red solid 3px;
 }
 
+.bar {
+    fill: red;
+}
+
+.bar:hover {
+    fill: yellowgreen;
+}
+
 footer {
     position: absolute;
     bottom: 0;
