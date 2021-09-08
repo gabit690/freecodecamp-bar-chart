@@ -87,8 +87,9 @@ const renderTooltip = (container = "body") => {
         bar.addEventListener("mouseover", () => {
             tooltip.style.display = "block";
             let date = bar.getAttribute("data-date");
-            tooltip.textContent = date;
+            let amount = bar.getAttribute("data-gdp");
             tooltip.setAttribute("data-date", date);
+            tooltip.innerHTML = `<p>${date}</p><br><p>$${amount} Billion</p>`;
         });
         bar.addEventListener("mouseout", () => {
             tooltip.style.display = "none";
