@@ -12,19 +12,35 @@ header h1 {
     margin-top: 5px;
     text-align: center;
     text-transform: capitalize;
+    text-decoration: underline;
 }
 
 main {
+    position: relative;
+    margin: auto;
     margin-top: 20px;
-    outline: red solid 3px;
+    width: fit-content;
+    background-color: whitesmoke;
+}
+
+#tooltip {
+    position: absolute;
+    display: none;
+    top: 100px;
+    left: 50%;
+    width: 200px;
+    height: 100px;
+    margin: auto;
+    transform: translate(-50%, 0%);
+    background-color: blue;
 }
 
 .bar {
-    fill: red;
+    fill: darkblue;
 }
 
 .bar:hover {
-    fill: yellowgreen;
+    fill: cornflowerblue;
 }
 
 footer {

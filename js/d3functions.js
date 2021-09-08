@@ -72,6 +72,30 @@ const renderBars = (container = {}, dataset = [], xScale = {}, yScale = {}) => {
                  .attr("height", (d, i) => (height - padding) - (yScale(d[1])));
 }
 
+const renderTooltip = (container = "body") => {
+    // tooltip
+    d3.select(container)
+      .append("div")
+      .attr("id", "tooltip")
+      .text("DIV");
+
+    const tooltip = document.getElementById("tooltip");
+
+    const bars = document.getElementsByTagName("rect");
+
+    bars.forEach(bar => {
+        bar.addEventListener("mouseover", () => {
+            tooltip.style.display = "block";
+            let date = bar.getAttribute("data-date");
+            tooltip.textContent = date;
+            tooltip.setAttribute("data-date", date);
+        });
+        bar.addEventListener("mouseout", () => {
+            tooltip.style.display = "none";
+        });
+    });
+}
+
 export default {
     // PUBLIC FUNCTIONS
     existsElement: (elementName = "") => {
@@ -107,6 +131,7 @@ export default {
         }
     },
     renderBarChart: (d3Element = {}, dataset = []) => {
+
         // Axis
         const width = d3Element.attr("width");
         const height = d3Element.attr("height");
@@ -118,7 +143,11 @@ export default {
         yDomain[1] += 1000;
         const yScale = createScaleLinear(yDomain, [height - padding, padding]);
         renderAxis(d3Element, xScale, yScale);
+        
         // Bind Data
         renderBars(d3Element, dataset, xScale, yScale);
+
+        // tooltip
+        renderTooltip("main");
     }
 };
