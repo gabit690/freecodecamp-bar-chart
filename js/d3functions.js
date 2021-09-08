@@ -76,8 +76,7 @@ const renderTooltip = (container = "body") => {
     // tooltip
     d3.select(container)
       .append("div")
-      .attr("id", "tooltip")
-      .text("DIV");
+      .attr("id", "tooltip");
 
     const tooltip = document.getElementById("tooltip");
 

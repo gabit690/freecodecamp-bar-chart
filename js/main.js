@@ -45,23 +45,4 @@ document.addEventListener('DOMContentLoaded', function(){
         d3functions.renderBarChart(svg, responseData.data);
     };
     req.send();
-
-    /*
-    
-    Scale linear function get Graph value
-
-    (((GraphData - RangeMin) * (DomainMax - DomainMin)) / (RangeMax - RangeMin)) + DomainMin
-
-    */
-
 });
-
-// Visualize Data with a Bar Chart
-
-// Objective: Build a CodePen.io app that is functionally similar to this: https://codepen.io/freeCodeCamp/full/GrZVaM.
-
-// User Story #12: I can mouse over an area and see a tooltip with a corresponding id="tooltip" which displays more information about the area.
-
-// User Story #13: My tooltip should have a data-date property that corresponds to the data-date of the active area.
-
-// Here is the dataset you will need to complete this project: https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json
